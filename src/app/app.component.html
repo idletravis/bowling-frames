@@ -3,12 +3,17 @@
     <mat-table [dataSource]="bowlers">
         <ng-container matColumnDef="bowler">
             <mat-header-cell class="bowler-header-cell" *matHeaderCellDef>Bowler</mat-header-cell>
-            <mat-cell class="bowler-cell" *matCellDef="let bowler">{{bowler}}</mat-cell>
+            <mat-cell class="bowler-cell" *matCellDef="let bowler">{{bowler.name}}</mat-cell>
         </ng-container>
         
         <ng-container *ngFor="let i of frameNumbers" matColumnDef="{{'frame' + i}}">
             <mat-header-cell class="frame-header-cell" *matHeaderCellDef>Frame {{i}}</mat-header-cell>
             <mat-cell class="frame-cell" *matCellDef="let frame">5</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="score">
+            <mat-header-cell class="score-header-cell" *matHeaderCellDef>Score</mat-header-cell>
+            <mat-cell class="score-cell" *matCellDef="let bowler">{{bowler.score}}</mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="columnNames"></mat-header-row>
