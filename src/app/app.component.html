@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<div>
+    <mat-table [dataSource]="bowlers">
+        <ng-container matColumnDef="bowler">
+            <mat-header-cell class="bowler-header-cell" *matHeaderCellDef>Bowler</mat-header-cell>
+            <mat-cell class="bowler-cell" *matCellDef="let bowler">{{bowler}}</mat-cell>
+        </ng-container>
+        
+        <ng-container *ngFor="let i of frameNumbers" matColumnDef="{{'frame' + i}}">
+            <mat-header-cell class="frame-header-cell" *matHeaderCellDef>Frame {{i}}</mat-header-cell>
+            <mat-cell class="frame-cell" *matCellDef="let frame">5</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnNames"></mat-header-row>
+        <mat-row *matRowDef="let cellData; columns: columnNames;"></mat-row>
+    </mat-table>
+</div>
