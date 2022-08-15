@@ -8,7 +8,10 @@
         
         <ng-container *ngFor="let i of frameNumbers" matColumnDef="{{'frame' + i}}">
             <mat-header-cell class="frame-header-cell" *matHeaderCellDef>Frame {{i}}</mat-header-cell>
-            <mat-cell class="frame-cell" *matCellDef="let frame">5</mat-cell>
+            <mat-cell class="frame-cell" *matCellDef="let frame">
+                <mat-cell id="first-throw" class="throw-cell">5</mat-cell>
+                <mat-cell id="second-throw" class="throw-cell">5</mat-cell>
+            </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="score">
