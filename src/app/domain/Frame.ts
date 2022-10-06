@@ -1,15 +1,15 @@
 
 
-export default class Frame {
+export class Frame {
 
     maxPins: number = 10;
     sumScore: number = 0;
     throws: number[] = [0, 0];
     isFirstThrow: boolean = true;
     hasASpare: boolean = false;
-    previousFrame!: Frame;
+    previousFrame!: Frame | undefined;
 
-    constructor(thisFrame: Frame) {
+    constructor(thisFrame: Frame | undefined) {
         this.previousFrame = thisFrame;
     }
 
