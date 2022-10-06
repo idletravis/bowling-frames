@@ -32,11 +32,4 @@ export default class Frame {
     private isASpare(): boolean{
         return (this.throws[0] + this.throws[1]) === 10 && this.throws[0] != 10;
     }
-
-
-    //That will allow access to view the value of that previous frame that determines if that frame had a spare
-    //And if that frame had a spare, that  is when you need to tell the previous frame to calculate its spare using the generatePinDropped method
-    //Add a method to check if it had a spare in the first place
-    
-    
 }
