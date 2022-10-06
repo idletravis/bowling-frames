@@ -9,27 +9,30 @@ export default class Frame {
     hasASpare: boolean = false;
     previousFrame!: Frame;
 
-    constructor(thisFrame: Frame){
+    constructor(thisFrame: Frame) {
         this.previousFrame = thisFrame;
     }
 
     public generatePinDropped(): void {
         this.throws[this.isFirstThrow ? 0 : 1] = Math.floor(Math.random() * (11 - this.throws[0]));
-        console.log(this.isFirstThrow ?  'First' : 'Second', 'Throw: ', this.throws[this.isFirstThrow ? 0 : 1]);
+        console.log(this.isFirstThrow ? 'First' : 'Second', 'Throw: ', this.throws[this.isFirstThrow ? 0 : 1]);
 
-        if(this.previousFrame?.hasASpare && this.isFirstThrow){
+        if (!this.isFirstThrow) {
+            this.sumScore = this.throws[0] + this.throws[1];
+        } else if (this.previousFrame?.hasASpare && this.isFirstThrow) {
             this.previousFrame?.calculateSpare(this.throws[0]);
         }
+
 
         this.isFirstThrow = false;
         this.hasASpare = this.isASpare();
     }
-    
+
     public calculateSpare(thisSpare: number): void {
         this.sumScore = 10 + thisSpare;
     }
 
-    private isASpare(): boolean{
+    private isASpare(): boolean {
         return (this.throws[0] + this.throws[1]) === 10 && this.throws[0] != 10;
     }
 }
