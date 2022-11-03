@@ -37,7 +37,11 @@ export class Frame {
         this.sumScore = 10 + (firstThrow + secondThrow);
     }
 
-    private isASpare(): boolean {
+    public isASpare(): boolean {
         return (this.throws[0] + this.throws[1]) === 10 && this.throws[0] != 10;
+    }
+
+    public isAStrike(): boolean {
+        return this.throws[0] == 10;
     }
 }
