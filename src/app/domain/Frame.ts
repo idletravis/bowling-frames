@@ -19,12 +19,11 @@ export class Frame {
 
         if (!this.isFirstThrow) {
             this.sumScore = this.throws[0] + this.throws[1];
-        } else if (this.previousFrame?.throws[0] == 10) {
-            this.calculateStrike();
-        }else if (this.previousFrame?.hasASpare && this.isFirstThrow) {
-            this.previousFrame?.calculateSpare(this.throws[0]);
+        } else if (this.previousFrame?.throws[0] == 10 && !this.isFirstThrow) {
+            this.previousFrame.calculateStrike(this.throws[0], this.throws[1]);
+        } else if (this.previousFrame?.hasASpare && this.isFirstThrow) {
+            this.previousFrame.calculateSpare(this.throws[0]);
         }
-
 
         this.isFirstThrow = false;
         this.hasASpare = this.isASpare();
@@ -34,8 +33,8 @@ export class Frame {
         this.sumScore = 10 + thisSpare;
     }
 
-    public calculateStrike(): void {
-        this.sumScore = 10 + (this.throws[0] + this.throws[1])
+    public calculateStrike(firstThrow: number, secondThrow: number): void {
+        this.sumScore = 10 + (firstThrow + secondThrow);
     }
 
     private isASpare(): boolean {
