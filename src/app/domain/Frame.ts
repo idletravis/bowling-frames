@@ -19,7 +19,9 @@ export class Frame {
 
         if (!this.isFirstThrow) {
             this.sumScore = this.throws[0] + this.throws[1];
-        } else if (this.previousFrame?.hasASpare && this.isFirstThrow) {
+        } else if (this.previousFrame?.throws[0] == 10) {
+            this.calculateStrike();
+        }else if (this.previousFrame?.hasASpare && this.isFirstThrow) {
             this.previousFrame?.calculateSpare(this.throws[0]);
         }
 
@@ -30,6 +32,10 @@ export class Frame {
 
     public calculateSpare(thisSpare: number): void {
         this.sumScore = 10 + thisSpare;
+    }
+
+    public calculateStrike(): void {
+        this.sumScore = 10 + (this.throws[0] + this.throws[1])
     }
 
     private isASpare(): boolean {
