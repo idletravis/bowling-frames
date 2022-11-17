@@ -19,7 +19,7 @@ export class Frame {
 
         if (!this.isFirstThrow) {
             this.sumScore = this.throws[0] + this.throws[1];
-        } else if (this.previousFrame?.throws[0] == 10 && !this.isFirstThrow) {
+        } else if (this.previousFrame?.isAStrike() && !this.isFirstThrow) {
             this.previousFrame.calculateStrike(this.throws[0], this.throws[1]);
         } else if (this.previousFrame?.hasASpare && this.isFirstThrow) {
             this.previousFrame.calculateSpare(this.throws[0]);
