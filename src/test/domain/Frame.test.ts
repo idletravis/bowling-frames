@@ -27,11 +27,20 @@ describe('A Frame ', () => {
         previousTestFrame.throws = [10, 0];
         // testFrame.throws = [2, 2];
         // when
+
         // then
         expect(testFrame.previousFrame?.isAStrike()).toBeTruthy();
     })
 
     it('should have the previous frame calculate the score for a strike', () => {
-
+         // given
+         const previousTestFrame: Frame = new Frame(undefined);
+         const testFrame: Frame = new Frame(previousTestFrame);
+         previousTestFrame.throws = [10, 0];
+         testFrame.throws = [3, 4];
+         // when
+         testFrame.calculateStrike(testFrame.throws[0], testFrame.throws[1])
+         // then
+         expect(testFrame.sumScore).toEqual(17);
     })
 })
