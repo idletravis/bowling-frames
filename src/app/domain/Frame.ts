@@ -23,13 +23,13 @@ export class Frame {
     }
 
     public generatePinDropped(): void {
-        const thisThrow = Math.floor(Math.random() * (11 - this.throws[0]));
+        const thisThrow = Math.floor(Math.random() * (11 - (this.throws[0] ?? 0)));
         this.throws.push(thisThrow);
         console.log(`This throw: ${thisThrow}`);
     }
 
     public calculateScore() {
-        this.sumScore = this.throws[0] + this.throws[1];
+        this.sumScore = this.throws[0] + (this.throws[1] ?? 0);
     }
 
     public calculateSpare(thisSpare: number): void {
