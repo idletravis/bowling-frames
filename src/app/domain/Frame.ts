@@ -7,9 +7,9 @@ export class Frame {
     frameDone: boolean = false;
     hasASpare: boolean = false;
     previousFrame!: Frame | undefined;
-    nextFrame: Frame;
+    nextFrame!: Frame | undefined;
 
-    constructor(previous: Frame | undefined, next: Frame) {
+    constructor(previous: Frame | undefined, next: Frame | undefined) {
         this.previousFrame = previous;
         this.nextFrame = next;
     }
@@ -17,7 +17,7 @@ export class Frame {
     // throw
     // 1. generatePinDropped
     // 2. determines frameDone
-    public throw(): void{
+    public throw(): void {
         this.generatePinDropped();
         this.determineFrameDone();
     }
@@ -28,9 +28,10 @@ export class Frame {
         console.log(`This throw: ${thisThrow}`);
     }
 
-    public calculateScore(firstThrow: number, secondThrow: number){
-        this.sumScore = firstThrow + secondThrow;
+    public calculateScore() {
+        this.sumScore = this.throws[0] + this.throws[1];
     }
+
     public calculateSpare(thisSpare: number): void {
         this.sumScore = 10 + thisSpare;
     }
