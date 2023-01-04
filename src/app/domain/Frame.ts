@@ -19,6 +19,7 @@ export class Frame {
     // 2. determines frameDone
     public throw(): void {
         this.generatePinDropped();
+        this.generatePinDropped();
         this.determineFrameDone();
     }
 
@@ -28,8 +29,19 @@ export class Frame {
         console.log(`This throw: ${thisThrow}`);
     }
 
-    public calculateScore() {
-        this.sumScore = this.throws[0] + (this.throws[1] ?? 0);
+    public calculateScore(firstThrow: number, secondThrow: number) {
+
+        if(this.isAStrike()) {
+            this.previousFrame?.calculateStrike(firstThrow, secondThrow);
+        }
+
+        else if(this.isASpare())
+            this.previousFrame?.calculateSpare(firstThrow);
+        
+        else
+            this.sumScore = this.throws[0] + this.throws[1];
+
+        return this.sumScore;
     }
 
     public calculateSpare(thisSpare: number): void {
