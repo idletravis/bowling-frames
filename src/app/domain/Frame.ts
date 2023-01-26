@@ -18,15 +18,15 @@ export class Frame {
     // 1. generatePinDropped
     // 2. determines frameDone
     public throw(): void {
-        this.generatePinDropped();
-        this.generatePinDropped();
-        this.determineFrameDone();
+        while (this.frameDone == false){
+            this.generatePinDropped();
+            this.determineFrameDone();
+        }
     }
 
     public generatePinDropped(): void {
         const thisThrow = Math.floor(Math.random() * (11 - (this.throws[0] ?? 0)));
         this.throws.push(thisThrow);
-        console.log(`This throw: ${thisThrow}`);
     }
 
     public calculateScore(firstThrow: number, secondThrow: number) {
