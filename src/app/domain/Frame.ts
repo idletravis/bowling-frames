@@ -32,15 +32,14 @@ export class Frame {
     public calculateScore(firstThrow: number, secondThrow: number) {
 
         if(this.isAStrike()) {
-            this.previousFrame?.calculateStrike(firstThrow, secondThrow);
+            this.nextFrame?.calculateStrike(firstThrow, secondThrow);
         }
 
         else if(this.isASpare())
-            this.previousFrame?.calculateSpare(firstThrow);
+            this.nextFrame?.calculateSpare(firstThrow);
         
         else
-            this.sumScore = this.throws[0] + this.throws[1];
-
+            this.sumScore = firstThrow + secondThrow;
         return this.sumScore;
     }
 
