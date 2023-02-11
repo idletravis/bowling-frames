@@ -22,45 +22,55 @@ describe('A Frame ', () => {
 
     it('should be able to correctly determine if it has a strike', () => {
         // given
-        //const previousTestFrame: Frame = new Frame(undefined);
-        //const testFrame: Frame = new Frame(previousTestFrame);
-        //previousTestFrame.throws = [10, 0];
+        const currentTestFrame: Frame = new Frame(undefined, undefined);
+        currentTestFrame.throws = [10, 0];
         // when
         // then
-        //expect(testFrame.previousFrame?.isAStrike()).toBeTruthy();
+        expect(currentTestFrame.isAStrike()).toBeTruthy();
     })
 
-    it('should have the previous frame calculate the score for a strike', () => {
+    it('should be able to correctly determine if it does not have a strike', () => {
         // given
-        const previousTestFrame: Frame = new Frame(undefined, undefined);
-        const currentTestFrame: Frame = new Frame(previousTestFrame, undefined);
-        previousTestFrame.throws = [10, 0];
-        currentTestFrame.throws = [3, 4];
+        const currentTestFrame: Frame = new Frame(undefined, undefined);
+        currentTestFrame.throws = [9, 1];
         // when
-        previousTestFrame.calculateStrike(currentTestFrame.throws[0], currentTestFrame.throws[1])
         // then
-        expect(previousTestFrame.sumScore).toEqual(17);
+        expect(currentTestFrame.isAStrike()).toBeFalsy();
     })
 
-    it('should not tell previous frame to calculate a strike when previous frame is not a strike', () => {
+    it('should have the current frame calculate the score for a strike', () => { //npx jest Frame || npm run jest Frame
         // given
-        const previousTestFrame: Frame = new Frame(undefined, undefined);
-        const currentTestFrame: Frame = new Frame(previousTestFrame, undefined);
-        previousTestFrame.throws = [5, 0];
+        const nextTestFrame: Frame = new Frame(undefined, undefined);
+        const currentTestFrame: Frame = new Frame(undefined, nextTestFrame);
+        currentTestFrame.throws = [10, 0];
+        nextTestFrame.throws = [3, 4];
         // when
-        currentTestFrame.generatePinDropped();
+        currentTestFrame.calculateStrike();
         // then
-        expect(previousTestFrame.isAStrike()).toBeFalsy();
+        expect(currentTestFrame.sumScore).toEqual(17);
     })
 
-    it('should not tell previous frame to calculate a strike when it is first throw of current frame', () => {
+    it('should calculate score when not a strike', () => {
         // given
-        const previousTestFrame: Frame = new Frame(undefined, undefined);
-        const currentTestFrame: Frame = new Frame(previousTestFrame, undefined);
-        previousTestFrame.throws[0] = 10;
+        const currentTestFrame: Frame = new Frame(undefined, undefined);
+        currentTestFrame.throws = [5, 4];
         // when
-        currentTestFrame.generatePinDropped();
+        currentTestFrame.calculateScore();
         // then
-        expect(previousTestFrame.sumScore).toEqual(0);
+        expect(currentTestFrame.sumScore).toEqual(9);
+    })
+
+    it('should calculate score when there is a strike', () => {
+        // given
+        const nextTestFrame: Frame = new Frame(undefined, undefined);
+        const currentTestFrame: Frame = new Frame(undefined, nextTestFrame);
+        currentTestFrame.throws = [10, 0];
+        // nextTestFrame.throws = [9, 1]; // strike with a spare: N
+        // nextTestFrame.throws = [10, 0]; // stike with another strike: Y
+        nextTestFrame.throws = [9, 0]; // simple strike scenario: Y
+        // when
+        currentTestFrame.calculateScore();
+        // then
+        expect(currentTestFrame.sumScore).toEqual(19);
     })
 })

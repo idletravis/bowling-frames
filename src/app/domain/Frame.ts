@@ -32,21 +32,35 @@ export class Frame {
     public calculateScore() {
         if (this.isAStrike()) {
             // this.nextFrame?.calculateStrike(firstThrow, secondThrow);
-        } else if (this.isASpare()) 
-        {
+        } else if (this.isASpare()) {
             // this.nextFrame?.calculateSpare(firstThrow);
         } else
             this.sumScore = this.throws.reduce((total, current) => total + current, 0);
         return this.sumScore;
     }
 
-    public calculateSpare(thisSpare: number): void {
-        this.sumScore = 10 + thisSpare;
+    public calculateSpare(): void {
+        this.sumScore = 10 + (this.nextFrame?.throws[0] ?? 0);
+    }
+    // Figure logic out for calculating a strike
+    public calculateStrike(): void {
+        this.sumScore = 10 + this.getNextValues().reduce((total, current) => total + current, 0);
     }
 
-    public calculateStrike(firstThrow: number, secondThrow: number): void {
-        this.sumScore = 10 + (firstThrow + secondThrow);
+    public getNextValues(): number[] {
+        if (!this.nextFrame?.isAStrike()) {
+            return [this.nextFrame?.throws[0] ?? 0, this.nextFrame?.throws[1] ?? 0];
+        }
+
+        return [this.nextFrame.throws[0], this.nextFrame.nextFrame?.throws[0] ?? 0];
     }
+    // new method -> look at next frame
+    // next frame not a strike? retrieve two throw values from it
+    // is next frame a strike? first value is determined to be 10, retrieve the following frame's first value
+    // considerations:
+    // - there could be no frame following nextFrame
+    // - there could be 3 total values in the 10th frame
+
 
     public determineFrameDone() {
         if (this.throws.length == 2 || this.isAStrike()) {
